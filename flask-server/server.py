@@ -20,11 +20,24 @@ def generate_image():
             n=1,
             size='512x512'
         )
+
+        image_url = response['data'][0]['url']
+
+        return {
+            "success": True,
+            "image_url": image_url
+        }
+
     except openai.error.OpenAIError as e:
         print(e.http_status)
         print(e.error)
 
-    return response['data'][0]['url']
+        return {
+            "success": False,
+            "error_message": "The image could not be generated."
+        }
+
+    
 
 
 if __name__ == '__main__':
