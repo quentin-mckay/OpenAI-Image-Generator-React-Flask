@@ -12,11 +12,16 @@ def index():
     return 'hello'
 
 
+@app.route('/test')
+def test():
+    return {'apples': 1, 'bananas': 2, 'cherries': 3}
+
+
 @app.route('/generateimage')
 def generate_image():
     try:
         response = openai.Image.create(
-            prompt='snowflake hat, realistic',
+            prompt='snowflake wearing a hat',
             n=1,
             size='512x512'
         )

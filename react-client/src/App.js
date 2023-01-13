@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+
+	const [data, setData] = useState({})
+	const [imageUrl, setImageUrl] = useState({})
+
+	const fruits = Object.entries(data).map(([key, value]) => {
+		return <p>{key} {value}</p>
+	})
+
+	useEffect(() => {
+		fetch('/test')
+			.then(res => res.json())
+			.then(data => {
+				setData(data)
+				console.log(data)
+			})
+
+		fetch('/generateimage')
+			.then(res => res.json())
+			.then(data => {
+				setImageUrl(data.image_url)
+				console.log(data)
+			})
+	}, [])
+	
+	return (
+		<main>
+			<h1>Hello there</h1>
+			{fruits}
+			
+		</main>
+	)
 }
-
-export default App;
