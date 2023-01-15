@@ -96,9 +96,9 @@ export default function App() {
 			// 	})
 			
 	return (
-		<main className='container mx-auto mt-6'>
+		<main className='container mx-auto mt-6 bg-white'>
 
-			<form className="flex flex-col items-center p-6 space-y-4 rounded border-gray-800">
+			<form className="flex flex-col items-center p-6 space-y-4 bg-gray-200 rounded border-gray-800">
 				{/* <input
 					type="text"
 					placeholder='Prompt'

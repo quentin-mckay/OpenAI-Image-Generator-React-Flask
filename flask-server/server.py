@@ -1,10 +1,9 @@
 from flask import Flask, request
 import openai
 import random
+from config import OPENAI_API_KEY
 
 app = Flask(__name__)
-
-OPENAI_API_KEY = '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'
 
 openai.api_key = OPENAI_API_KEY
 
