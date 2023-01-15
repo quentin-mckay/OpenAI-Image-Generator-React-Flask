@@ -4,7 +4,7 @@ import random
 
 app = Flask(__name__)
 
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = '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'
 
 openai.api_key = OPENAI_API_KEY
 
@@ -45,12 +45,15 @@ def posttest():
 def generate_image():
 
     print(request.json)
+    
+    prompt = request.json['prompt']
+    size = request.json['size']
 
     try:
         response = openai.Image.create(
-            prompt='snowflake wearing a hat',
+            prompt=prompt,
             n=1,
-            size='512x512'
+            size=size
         )
 
         image_url = response['data'][0]['url']
