@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
+import Spinner from './Spinner'
 
 export default function App() {
 
 	const [formData, setFormData] = useState({
-		prompt: 'snowflake with hat',
+		prompt: 'bunny in the style of picasso',
 		size: '512x512'
 	})
 
@@ -71,6 +72,7 @@ export default function App() {
 		try {
 
 			setShowSpinner(true)
+			console.log('showing spinner')
 			
 			fetch('/generateimage', {
 				method: 'POST',
@@ -81,9 +83,12 @@ export default function App() {
 			})
 			.then(res => res.json())
 			.then(data => {
-				console.log(data)
+				// console.log(data)
 				setData(data)
+				setShowSpinner(false)
+				console.log('hiding spinner')
 			})
+
 		} catch (error) {
 			
 		}
@@ -96,47 +101,50 @@ export default function App() {
 			// 	})
 			
 	return (
-		<main className='container mx-auto mt-6 bg-white'>
+		<div>
+			<main className='container mx-auto mt-6 max-w-2xl bg-white'>
+				<form className="flex flex-col items-center p-6 space-y-4 bg-gray-200 rounded border-gray-800">
+					{/* <input
+						type="text"
+						placeholder='Prompt'
+						name="prompt"
+						value={prompt}
+						onChange={e => setPrompt(e.target.value)}
+					/> */}
+					<textarea
+						name="prompt"
+						// cols="30" rows="2"
+						placeholder='Prompt'
+						className='rounded w-full'
+						onChange={handleChange}
+						value={formData.prompt}
+						></textarea>
+			
+					<select
+						name="size"
+						className='rounded w-1/3'
+						value={formData.size}
+						onChange={handleChange}
+						>
+						<option value="256x256">Small (256x256)</option>
+						<option value="512x512">Medium (512x512)</option>
+						<option value="1024x1024">Large (1024x1024)</option>
+					</select>
+			
+					{/* <button onClick={posttest}>Post Test</button> */}
+			
+					<input
+						onClick={generateImageRequest}
+						type="button"
+						value="Generate Image"
+						className='w-1/3 border border-gray-500 rounded p-2 px-4 bg-green-300 hover:cursor-pointer hover:bg-green-400 transition'/>
+				</form>
+			
+				{data.image_url && <img src={data.image_url} alt="generated" className='w-full p-6' />}
+			</main>
 
-			<form className="flex flex-col items-center p-6 space-y-4 bg-gray-200 rounded border-gray-800">
-				{/* <input
-					type="text"
-					placeholder='Prompt'
-					name="prompt"
-					value={prompt}
-					onChange={e => setPrompt(e.target.value)}
-				/> */}
-				<textarea
-					name="prompt"
-					// cols="30" rows="2"
-					placeholder='Prompt'
-					className='rounded w-full'
-					onChange={handleChange}
-					value={formData.prompt}
-					></textarea>
-					
-				<select 
-					name="size" 
-					className='rounded'
-					value={formData.size}
-					onChange={handleChange}
-					>
-					<option value="256x256">Small (256x256)</option>
-					<option value="512x512">Medium (512x512)</option>
-					<option value="1024x1024">Large (1024x1024)</option>
-				</select>
-		
-				{/* <button onClick={posttest}>Post Test</button> */}
-		
-				<input
-					onClick={generateImageRequest}
-					type="button"
-					value="Generate Image"
-					className='border border-gray-500 rounded p-2 px-4 hover:cursor-pointer hover:bg-green-300 transition'/>
-			</form>
-
-		{data.image_url && <img src={data.image_url} alt="generated" className='w-full p-6' />}
-	
-		</main>
+			{showSpinner && <Spinner />}
+			{/* <p>{showSpinner}</p> */}
+		</div>
 	)
 }
