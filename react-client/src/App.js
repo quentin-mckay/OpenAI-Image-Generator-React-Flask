@@ -59,7 +59,7 @@ export default function App() {
 	return (
 		<div>
 			<main className='container mx-auto mt-12 max-w-2xl bg-white/40 rounded'>
-				<form className="p-6 space-y-4 rounded border-gray-800 backdrop-blur-xl">
+				<form className="p-6 space-y-1 rounded border-gray-800 backdrop-blur-xl">
 					
 					<textarea
 						name="prompt"
@@ -69,7 +69,7 @@ export default function App() {
 						value={formData.prompt}
 						></textarea>
 			
-					<div className='flex space-x-6'>
+					<div className='flex flex-col space-y-3 md:flex-row md:space-x-3 md:space-y-0'>
 
 						<select
 							name="size"
@@ -86,8 +86,8 @@ export default function App() {
 							onClick={generateImageRequest}
 							type="button"
 							value="Generate Image"
-							className='w-full border border-gray-500 rounded p-2 px-4 font-bold text-white
-							border-none bg-green-600 hover:cursor-pointer hover:bg-green-500 active:bg-green-400 transition'/>
+							className='border border-gray-500 rounded p-2 px-4 font-bold text-white
+							border-none bg-green-600 hover:cursor-pointer hover:bg-green-500 active:bg-green-400 transition md:w-full'/>
 					</div>
 					
 				</form>
