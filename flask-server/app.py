@@ -1,13 +1,20 @@
 from flask import Flask, request
 from config import OPENAI_API_KEY
 import openai
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 openai.api_key = OPENAI_API_KEY
 
 
 # =============================================
+@app.route('/')
+def index(): 
+    return 'hello world'
+
+
 @app.route('/generateimage', methods=['POST'])
 def generate_image():
 
@@ -39,7 +46,7 @@ def generate_image():
 
 
 # =============================================
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()
 
 
